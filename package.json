@@ -1,0 +1,26 @@
+{
+	"name": "sercurer",
+	"version": "1.0.5",
+	"description": "Easily secure your HTTP servers!",
+	"main": "index.js",
+	"author": {
+		"name": "Matthew James",
+		"email": "mattdestroyerpro@gmail.com",
+		"url": "https://mattdestroyer.repl.co"
+	},
+	"contributors": [
+		{
+			"name": "Matthew James",
+			"email": "mattdestroyerpro@gmail.com",
+			"url": "https://mattdestroyer.repl.co"
+		}
+	],
+	"keywords": [
+		"server",
+		"secure",
+		"security",
+		"http",
+		"https"
+	],
+	"license": "MIT"
+}
