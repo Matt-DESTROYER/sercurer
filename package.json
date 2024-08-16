@@ -1,8 +1,11 @@
 {
 	"name": "sercurer",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "Easily secure your HTTP servers!",
 	"main": "index.js",
+	"scripts": {
+		"test": "echo \"No tests to perform\" && exit 0"
+	},
 	"author": {
 		"name": "Matthew James",
 		"email": "mattdestroyerpro@gmail.com",
