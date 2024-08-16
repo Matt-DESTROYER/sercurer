@@ -6,7 +6,7 @@ on:
 defaults:
   run:
     shell: bash
-    working-directory: ./
+    working-directory: ./src
 jobs:
   test:
     runs-on: ubuntu-latest
