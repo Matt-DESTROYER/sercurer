@@ -6,7 +6,7 @@ on:
 defaults:
   run:
     shell: bash
-    working-directory: ./src
+    working-directory: ./
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -26,10 +26,8 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-          scope: "@matthewjames/typesafe-cli"
-      - run: cp ../README.md ./
+          scope: "@matthewjames/sercurer"
       - run: npm ci
       - run: npm publish --access=public
-      - run: rm ./README.md
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
