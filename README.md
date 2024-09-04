@@ -24,4 +24,3 @@ Add ratelimiting to your server:
 // limit each IP address to 10 requests every second (1000 milliseconds)
 app.use(sercurer.ratelimit(/* requests */ 10, /* milliseconds */ 1000));
 ```
-> Note: Ratelimiting feature may temporarily be partially broken.

@@ -2,7 +2,6 @@
 const SAME_SOCKET_ADDRESS_LIMIT = 50;
 
 // rate limit on a number of `requests` allowed per `milliseconds`
-// potentially not working properly
 function ratelimit(requests, milliseconds, proxy = null) {
 	// bucket of IPs and logs of when each made a request
 	const bucket = new Map();

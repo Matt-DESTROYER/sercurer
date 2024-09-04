@@ -1,6 +1,6 @@
 {
 	"name": "sercurer",
-	"version": "1.0.8",
+	"version": "1.1.0",
 	"description": "Easily secure your HTTP servers!",
 	"main": "index.js",
 	"scripts": {
