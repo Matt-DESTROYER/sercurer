@@ -64,7 +64,7 @@ function ratelimit(requests, milliseconds, proxy = null) {
 				return;
 			}
 		} else {
-			bucketed_ip = [currentTime];
+			bucket.set(req.ip, [currentTime]);
 		}
 		// allow the request to continue
 		next();
