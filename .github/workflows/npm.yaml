@@ -27,11 +27,12 @@ jobs:
           node-version: lts/*
           registry-url: https://registry.npmjs.org/
           scope: "@matthewjames/sercurer"
-      - run: cp ../LICENSE ./
-      - run: cp ../README.md ./
-      - run: npm ci
-      - run: npm publish --access=public
+      - run: |
+          cp ../LICENSE ./
+          cp ../README.md ./
+          npm ci
+          npm publish --access=public
+          rm ./LICENSE
+          rm ./README.md
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: rm ./LICENSE
-      - run: rm ./README.md
