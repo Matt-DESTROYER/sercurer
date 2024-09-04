@@ -5,7 +5,7 @@ const SAME_SOCKET_ADDRESS_LIMIT = 50;
 // potentially not working properly
 function ratelimit(requests, milliseconds, proxy = null) {
 	// bucket of IPs and logs of when each made a request
-	const bucket = {};
+	const bucket = new Map();
 
 	// variables to help prevent innacurate IP logging if a proxy is used
 	let useSocketRemoteAddress = true,
@@ -25,7 +25,7 @@ function ratelimit(requests, milliseconds, proxy = null) {
 					sameRemoteAddresses = 0;
 					socketRemoteAddress = req.socket.removeAddress;
 				}
-				// if the same address is used more than SAME_SOCKET_ADDRESS_LIMIT times stop using socket.removeAddress because it is probably the IP of a proxy server
+				// if the same address is used more than SAME_SOCKET_ADDRESS_LIMIT times stop using socket.removeAddress and assume it is the IP of a proxy server
 				if (sameRemoteAddresses > SAME_SOCKET_ADDRESS_LIMIT) {
 					useSocketRemoteAddress = false;
 				}
@@ -45,17 +45,18 @@ function ratelimit(requests, milliseconds, proxy = null) {
 		// (prevent repeated use of Date.now())
 		const currentTime = Date.now();
 		// if the IP has been recorded
-		if (bucket.hasOwnProperty(req.ip)) {
+		const bucketed_ip = bucket.get(req.ip);
+		if (bucketed_ip) {
 			// remove any logs of requests past the specified duration
-			for (let i = 0; i < bucket[req.ip].length; i++) {
-				if (currentTime - bucket[req.ip][i] > milliseconds) {
-					bucket[req.ip].splice(i, 1);
+			for (let i = 0; i < bucketed_ip.length; i++) {
+				if (currentTime - bucketed_ip[i] > milliseconds) {
+					bucketed_ip.splice(i, 1);
 					i--;
 				}
 			}
 			// ratelimit based on whether or not the requests exceed the specified number
-			if (bucket[req.ip].length < requests) {
-				bucket[req.ip].push(currentTime);
+			if (bucketed_ip.length < requests) {
+				bucketed_ip.push(currentTime);
 			} else {
 				// ratelimit and stop the request from continuing
 				res.send("Ratelimited.");
@@ -63,7 +64,7 @@ function ratelimit(requests, milliseconds, proxy = null) {
 				return;
 			}
 		} else {
-			bucket[req.ip] = [currentTime];
+			bucketed_ip = [currentTime];
 		}
 		// allow the request to continue
 		next();
